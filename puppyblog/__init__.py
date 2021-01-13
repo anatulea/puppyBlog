@@ -23,8 +23,10 @@ def create_app(config_type):
 
     from puppyblog.core.views import core
     from puppyblog.error_pages.handlers import error_pages
+    from puppyblog.users.views import authentication
 
     app.register_blueprint(core) 
     app.register_blueprint(error_pages)
+    app.register_blueprint(authentication)
 
     return app
