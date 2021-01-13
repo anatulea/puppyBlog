@@ -34,12 +34,14 @@
         <a class="nav-link" href="{{ url_for('core.info') }}">About Us</a>
       </li>
 
-      <li class="nav-link"><a href="#">Log Out</a></li>
-      <li class="nav-link"><a href="#">Account</a></li>
+      {% if current_user.is_authenticated %}
+      <li class="nav-link"><a href="{{ url_for('authentication.log_out_user') }}">Log Out</a></li>
+      <li class="nav-link"><a href="{{ url_for('authentication.account') }}">Account</a></li>
       <li class="nav-link"><a href="#">Create Post</a></li>
-
-      <li class="nav-link"><a href="#">Log In</a></li>
-      <li class="nav-link"><a href="#">Register</a></li>
+      {% else %}
+      <li class="nav-link"><a href="{{ url_for('authentication.do_the_login') }}">Log In</a></li>
+      <li class="nav-link"><a href="{{ url_for('authentication.register_user') }}">Register</a></li>
+      {% endif %}
     </ul>
     <div class="container">{% block content %} {% endblock %}</div>
   </body>
