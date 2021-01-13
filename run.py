@@ -1,4 +1,5 @@
-from puppyblog import app
+from puppyblog import create_app
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    flask_app = create_app('dev')
+    flask_app.run(debug=True)
