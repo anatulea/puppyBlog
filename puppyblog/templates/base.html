@@ -37,7 +37,7 @@
       {% if current_user.is_authenticated %}
       <li class="nav-link"><a href="{{ url_for('authentication.log_out_user') }}">Log Out</a></li>
       <li class="nav-link"><a href="{{ url_for('authentication.account') }}">Account</a></li>
-      <li class="nav-link"><a href="#">Create Post</a></li>
+      <li class="nav-link"><a href="{{ url_for('blog_posts.create_post') }}">Create Post</a></li>
       {% else %}
       <li class="nav-link"><a href="{{ url_for('authentication.do_the_login') }}">Log In</a></li>
       <li class="nav-link"><a href="{{ url_for('authentication.register_user') }}">Register</a></li>
