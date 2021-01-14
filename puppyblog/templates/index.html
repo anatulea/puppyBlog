@@ -1,43 +1,106 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="jumbotron">
-    <h1>Puppy Company Blog</h1>
-    <p>Welcome to Our Company's Blog Page</p>
+<div class="jumbotron">
+  
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="carouselExampleCaptions" data-slide-to="0" class="active"></li>
+      <li data-target="carouselExampleCaptions" data-slide-to="1"></li>
+      <li data-target="carouselExampleCaptions" data-slide-to="2"></li>
+      <li data-target="carouselExampleCaptions" data-slide-to="3"></li>
+      <li data-target="carouselExampleCaptions" data-slide-to="4"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="static/carousel/puppy4.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Lorem Ipsum</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod urna ut lorem euismod, at
+            consectetur metus interdum.</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="static/carousel/puppy1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Aenean venenatis</h5>
+          <p>Vestibulum id lectus turpis. Curabitur hendrerit fringilla ex. Etiam at neque molestie quam finibus
+            molestie eget non lacus. </p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="static/carousel/puppy2.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Doggo ipsum wrinkler puggo</h5>
+          <p>Doggo ipsum wrinkler puggo many pats pats ur givin me a spook doing me a frighten tungg doing me a
+            frighten, you are doing me the shock fat boi bork doge vvv long water shoob. Doge doggorino fat boi mlem,
+            vvv. Shoober boof heck yapper dat tungg tho, fat boi yapper waggy wags.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="static/carousel/puppy3.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Length boy heckin thicc very taste wow</h5>
+          <p>Shoober you are doin me a concern bork long water shoob long woofer vvv, pats such treat wow such tempt
+            borking doggo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="static/carousel/puppy5.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Blop fluffer pupper ruff heckin angery</h5>
+          <p>Fat boi borkf what a nice floof borkdrive long bois doggorino heckin good boys, dat tungg tho length boy
+            puggo blep. Tungg long doggo heckin good boys snoot what a nice floof, adorable doggo puggorino pupperp>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden"></span>
+    </a>
   </div>
+
+
   <div class="container">
 
     {# Go through each blog post #}
     {% for post in blog_posts.items %}
 
-    <div class="card" >
+    <div class="card">
 
       <div class="card-body">
 
 
-        <h2><a class="card-title" href="  {{ url_for('blog_posts.blog_post', blog_post_id=post.id) }}">{{ post.title }}</a></h2>
-        <a href="{{ url_for('authentication.user_posts', user_name=post.author.user_name) }}">Written By: {{ post.author.user_name }}</a>
+        <h2><a class="card-title"
+            href="{{ url_for('blog_posts.blog_post', blog_post_id=post.id) }}">{{ post.title }}</a></h2>
+        <a href="{{ url_for('authentication.user_posts', user_name=post.author.user_name) }}">Written By:
+          {{ post.author.user_name }}</a>
         <p>Published on: {{ post.date.strftime('%Y-%m-%d') }}</p>
         <p class="card-text">{{ post.text[:100] }}...</p>
         <a href="{{ url_for('blog_posts.blog_post', blog_post_id=post.id) }}" class="btn btn-primary">Read Blog Post</a>
       </div>
     </div>
 
-   {% endfor %}
+    {% endfor %}
 
-   <nav aria-label="Page navigation example">
-     <ul class="pagination justify-content-center">
-       {% for page_num in blog_posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-          {% if blog_posts.page == page_num %}
-          <li class="page-item disabled">
-            <a class="page-link" href="{{ url_for('core.index', page=page_num) }}">{{ page_num }}</a></li>
-          </li>
-          {% else %}
-            <li class="page-item"><a class="page-link" href="{{ url_for('core.index', page=page_num) }}">{{ page_num }}</a></li>
-          {% endif %}
-      {% endfor %}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% for page_num in blog_posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if blog_posts.page == page_num %}
+        <li class="page-item disabled">
+          <a class="page-link" href="{{ url_for('core.index', page=page_num) }}">{{ page_num }}</a></li>
+        </li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('core.index', page=page_num) }}">{{ page_num }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
     </nav>
 
 
 
 
-{% endblock %}	
+    {% endblock %}

@@ -1,48 +1,100 @@
+{% import "bootstrap/wtf.html" as wtf %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <meta charset="utf-8" />
-    <title></title>
-  </head>
-  <body>
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('core.index') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('core.info') }}">About Us</a>
-      </li>
+{# head #}
+{% block head %}
 
-      {% if current_user.is_authenticated %}
-      <li class="nav-link"><a href="{{ url_for('authentication.log_out_user') }}">Log Out</a></li>
-      <li class="nav-link"><a href="{{ url_for('authentication.account') }}">Account</a></li>
-      <li class="nav-link"><a href="{{ url_for('blog_posts.create_post') }}">Create Post</a></li>
-      {% else %}
-      <li class="nav-link"><a href="{{ url_for('authentication.do_the_login') }}">Log In</a></li>
-      <li class="nav-link"><a href="{{ url_for('authentication.register_user') }}">Register</a></li>
-      {% endif %}
-    </ul>
-    <div class="container">{% block content %} {% endblock %}</div>
-  </body>
+<head>
+  <title> Puppy blog </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css') }}">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+  </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+</head>
+{% endblock head %}
+
+
+{# body #}
+{% block body %}
+
+<body>
+  <div class="wrapper">
+    {# navigation bar #}
+    {% block navbar %}
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark navbar-inverse">
+      <div class="container">
+        <a class="navbar navbar-text" href="{{ url_for('core.index') }}" style="font-size: 25px;">
+          <img src="static/logo.png" alt="" width="50" height="50"> Puppy Blog
+        </a>
+        <ul class="nav navbar-nav pull-right">
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('core.index') }}"> Home </a></li>
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('core.info') }}"> About Us </a></li>
+          <li> {% if current_user.is_authenticated %}
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('authentication.account') }}">Account</a>
+          </li>
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('blog_posts.create_post') }}">Create Post</a>
+          </li>
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('authentication.log_out_user') }}"> SignOut
+            </a> </li>
+          {% else %}
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('authentication.do_the_login') }}"> SignIn
+            </a></li>
+          <li class="nav-item active"><a class="nav-link" href="{{ url_for('authentication.register_user') }}"> Register
+            </a></li>
+          {% endif %}
+          </li>
+          <li class="nav-item active"><a class="nav-link" href="">
+              {% if current_user.is_authenticated %}
+              Logged-In as <b style="color: deeppink"> {{ current_user.user_name }} </b>
+              {% else %}
+              Not Logged-In
+              {% endif %}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    {% endblock navbar %}
+
+    {# flash messaging #}
+    {% for message in get_flashed_messages() %}
+    <div class=" container alert alert-info">
+      <button type="button" class="close" data-dismiss="alert"></button>
+      {{ message }}
+    </div>
+    {% endfor %}
+
+
+    {# empty block for custom content #}
+    <div class="container">{% block content %}{% endblock %} </div>
+  </div>
+  {# footer #}
+  {% block footer %}
+  <footer>
+    <div style="background-color:#212529; color:cornsilk; width:100%; position: relative; height: 80px;">
+      <hr>
+      <div style="display: flex; justify-content: center;">
+        <a href="https://www.linkedin.com/in/anatulea/">
+          <img src="static/li.png" alt="" width="30" height="30">
+        </a>
+        <a href="https://github.com/anatulea">
+          <img src="static/github.png" alt="" width="30" height="30">
+        </a></div>
+      <p class="text-center small">Puppy Blog &copy; | 2021</p>
+    </div>
+  </footer>
+  {% endblock footer %}
+</body>
+{% endblock body %}
+
 </html>

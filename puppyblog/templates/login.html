@@ -1,17 +1,11 @@
 {% extends "base.html" %} {% block content %}
-<div class="container">
-  <form method="POST">
-    {# This hidden_tag is a CSRF security feature. #} {{ form.hidden_tag() }}
-    <div class="form-group">
-        {{ form.email.label(class="form-group") }} {{ form.email(class='form-control') }}
-    </div>
-    
-    <div class="form-group">
-      {{ form.password.label(class="form-group") }} {{ form.password(class='form-control') }}
-    </div>
-    
+<div class="container login-msg">
+  <h4 style="margin-left: 100px"> Login Here </h4>
+  <hr><br>
 
-    <div class="form-group">{{ form.submit() }}</div>
-  </form>
+  <div>
+    {{ form.hidden_tag() }}
+    {{ wtf.quick_form(form) }} </div>
+</div>
 </div>
 {% endblock %}
