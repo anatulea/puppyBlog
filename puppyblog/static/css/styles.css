@@ -13,13 +13,7 @@ ul {
     top: 25px;
     right: 7%;
 }
-/* footer{
-    position: absolute;
-    width: 100%;
-    left:0 ;
-    bottom: 0;
-    height: 40px
-} */
+
 a h3 {
     position: relative;
     left: 10%
@@ -30,17 +24,7 @@ span {
 .navbar-inverse {
     height: 5%;
 }
-.books {
-    padding: 25px;
-    position: relative;
-    left: 5%;
-    width: 80%
-}
-.publisher {
-    padding: 25px;
-    position: relative;
-    left: 40px
-}
+
 .ftr {
     padding: 25px
 }
